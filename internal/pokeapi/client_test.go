@@ -16,7 +16,7 @@ const mewtwoJSON = `{
 	"habitat": {"name": "rare"},
 	"flavor_text_entries": [
 		{"flavor_text": "Es wurde von einem Forscher erzeugt.", "language": {"name": "de"}},
-		{"flavor_text": "It was created by a scientist after years of experiments.", "language": {"name": "en"}}
+		{"flavor_text": "It was created by\na scientist after\fyears of experiments.", "language": {"name": "en"}}
 	]
 }`
 

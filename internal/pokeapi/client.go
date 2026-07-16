@@ -72,10 +72,16 @@ func (c *Client) Species(ctx context.Context, name string) (pokemon.Pokemon, err
 func englishDescription(s speciesResponse) string {
 	for _, entry := range s.FlavorTextEntries {
 		if entry.Language.Name == "en" {
-			return entry.FlavorText
+			return normalizeWhitespace(entry.FlavorText)
 		}
 	}
 	return ""
+}
+
+// PokeAPI flavor texts contain raw control characters from the game data
+// (\n, \f) that would leak into API responses.
+func normalizeWhitespace(text string) string {
+	return strings.Join(strings.Fields(text), " ")
 }
 
 func habitatName(s speciesResponse) string {
