@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -52,13 +53,26 @@ func (c *Client) Translate(ctx context.Context, text string, style Style) (strin
 		return "", fmt.Errorf("funtranslations returned status %d", resp.StatusCode)
 	}
 
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
+	if err != nil {
+		return "", fmt.Errorf("reading funtranslations response: %w", err)
+	}
+
 	var translation translationResponse
-	if err := json.NewDecoder(resp.Body).Decode(&translation); err != nil {
-		return "", fmt.Errorf("decoding funtranslations response: %w", err)
+	if err := json.Unmarshal(body, &translation); err != nil {
+		return "", fmt.Errorf("decoding funtranslations response: %w (body starts: %q)", err, snippet(body))
 	}
 	if translation.Contents.Translated == "" {
 		return "", errors.New("funtranslations returned an empty translation")
 	}
 
 	return translation.Contents.Translated, nil
+}
+
+func snippet(body []byte) string {
+	const max = 200
+	if len(body) <= max {
+		return string(body)
+	}
+	return string(body[:max])
 }
