@@ -34,7 +34,7 @@ type translationResponse struct {
 }
 
 func (c *Client) Translate(ctx context.Context, text string, style Style) (string, error) {
-	endpoint := fmt.Sprintf("%s/translate/%s.json", c.baseURL, style)
+	endpoint := fmt.Sprintf("%s/translate/%s", c.baseURL, style)
 	form := url.Values{"text": {text}}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, endpoint, strings.NewReader(form.Encode()))

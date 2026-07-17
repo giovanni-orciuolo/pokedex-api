@@ -9,8 +9,8 @@ import (
 
 func TestTranslateSendsTextAndReturnsTranslation(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/translate/yoda.json" {
-			t.Errorf("path = %q, want /translate/yoda.json", r.URL.Path)
+		if r.URL.Path != "/translate/yoda" {
+			t.Errorf("path = %q, want /translate/yoda", r.URL.Path)
 		}
 		if r.Method != http.MethodPost {
 			t.Errorf("method = %q, want POST", r.Method)

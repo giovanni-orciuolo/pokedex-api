@@ -20,7 +20,7 @@ func main() {
 
 	handler := api.NewHandler(
 		pokeapi.NewClient(envOr("POKEAPI_URL", "https://pokeapi.co"), httpClient),
-		translator.NewClient(envOr("FUNTRANSLATIONS_URL", "https://funtranslations.mercxry.me"), httpClient),
+		translator.NewClient(envOr("FUNTRANSLATIONS_URL", "https://api.funtranslations.mercxry.me/v1"), httpClient),
 	)
 
 	server := &http.Server{

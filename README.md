@@ -62,7 +62,7 @@ pointing at a paid FunTranslations plan):
 |-----------------------|--------------------------------------|
 | `ADDR`                | `:5000`                              |
 | `POKEAPI_URL`         | `https://pokeapi.co`                 |
-| `FUNTRANSLATIONS_URL` | `https://funtranslations.mercxry.me` |
+| `FUNTRANSLATIONS_URL` | `https://api.funtranslations.mercxry.me/v1` |
 
 ## Project layout
 
@@ -83,9 +83,14 @@ tested against a fake upstream (`httptest.Server`).
 - **No external dependencies.** Go 1.22's `net/http.ServeMux` supports method + path-parameter
   routing, which is all this service needs. Fewer dependencies means a smaller supply-chain
   surface and nothing to keep patched.
-- **Translation failures degrade gracefully.** The public FunTranslations API is rate-limited
-  (5 requests/hour); per the requirements, any translation failure falls back to the standard
-  description and the endpoint still returns `200`. The failure is logged.
+- **Translation failures degrade gracefully.** The FunTranslations mirror is rate-limited
+  (5 requests/minute, communicated via a 429 with `retry_after` in the body); per the
+  requirements, any translation failure falls back to the standard description and the
+  endpoint still returns `200`. The failure is logged.
+- **The mirror's contract, not the official docs.** The challenge URL serves the mirror's
+  Swagger page; the actual API (per its OpenAPI spec) lives at
+  `api.funtranslations.mercxry.me/v1`, is POST-only, and uses `/translate/{style}` without
+  the `.json` suffix used by the official funtranslations.com API.
 - **Habitat can be missing.** Newer-generation Pokemon have `habitat: null` in PokeAPI; the API
   returns `"unknown"` rather than an empty string so the field is always meaningful.
 - **Flavor text is normalized.** PokeAPI descriptions contain raw `\n`/`\f` control characters
