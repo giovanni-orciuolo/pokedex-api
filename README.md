@@ -4,7 +4,7 @@ A small REST API that serves Pokemon information, with an optional "fun" transla
 Pokemon's description (Yoda for legendary or cave-dwelling Pokemon, Shakespeare for everyone
 else).
 
-Built in Go with **zero external dependencies** — only the standard library.
+Built in Go with **zero external dependencies**, only the standard library.
 
 ## Endpoints
 
@@ -101,7 +101,7 @@ tested against a fake upstream (`httptest.Server`).
 ## What I would do differently for production
 
 - **Caching.** Pokemon data is effectively immutable, so responses from PokeAPI (and
-  translations) should be cached aggressively — an in-memory LRU with TTL for a single
+  translations) should be cached aggressively: an in-memory LRU with TTL for a single
   instance, or Redis for a fleet. This is the single highest-impact change given the
   FunTranslations rate limit.
 - **Resilience.** Retries with backoff and jitter for transient upstream failures, a circuit
