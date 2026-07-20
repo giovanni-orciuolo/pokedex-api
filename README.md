@@ -1,7 +1,7 @@
 # Pokedex API
 
-A small REST API that serves Pokemon information, with an optional "fun" translation of the
-Pokemon's description (Yoda for legendary or cave-dwelling Pokemon, Shakespeare for everyone
+A small REST API that serves Pokémon information, with an optional "fun" translation of the
+Pokémon's description (Yoda for legendary or cave-dwelling Pokémon, Shakespeare for everyone
 else).
 
 Built in Go with **zero external dependencies**, only the standard library.
@@ -10,7 +10,7 @@ Built in Go with **zero external dependencies**, only the standard library.
 
 | Method | Path                          | Description                                    |
 |--------|-------------------------------|------------------------------------------------|
-| GET    | `/pokemon/{name}`             | Basic Pokemon information                      |
+| GET    | `/pokemon/{name}`             | Basic Pokémon information                      |
 | GET    | `/pokemon/translated/{name}`  | Same, with a fun translation of the description |
 
 Example:
@@ -23,7 +23,7 @@ $ curl http://localhost:5000/pokemon/translated/mewtwo
 {"name":"mewtwo","description":"Created by a scientist after years of horrific gene splicing and dna engineering experiments, it was.","habitat":"rare","isLegendary":true}
 ```
 
-Error responses are JSON as well: `404` when the Pokemon does not exist, `502` when PokeAPI is
+Error responses are JSON as well: `404` when the Pokémon does not exist, `502` when PokeAPI is
 unreachable or misbehaving.
 
 ## How to run
