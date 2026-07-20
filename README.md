@@ -1,4 +1,4 @@
-# Pokedex API
+# Pokédex API
 
 A small REST API that serves Pokémon information, with an optional "fun" translation of the
 Pokémon's description (Yoda for legendary or cave-dwelling Pokémon, Shakespeare for everyone
